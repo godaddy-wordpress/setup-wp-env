@@ -39,7 +39,7 @@ runs:
     - name: Create configuration file
       shell: bash
       run: |
-        cat << EOF > .wp-env.json
+        cat << EOF > .wp-env.override.json
         {
           "core"       : ${{ toJSON( inputs.core ) }},
           "phpVersion" : ${{ toJSON( inputs.phpVersion ) }},
