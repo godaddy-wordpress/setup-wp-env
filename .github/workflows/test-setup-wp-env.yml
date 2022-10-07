@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test wp-env setup
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create package.lock
+        run: |
+          echo '{ "name" : "setup-wp-env" }' > package.json
+          cat << EOF > package-lock.json
+          {
+            "name": "setup-wp-env",
+            "lockfileVersion": 2,
+            "requires": true,
+            "packages": {
+              "": {
+                "name": "setup-wp-env"
+              }
+            }
+          }
+          EOF
+
+      - name: Run setup-wp-env
+        uses: ./
+
+      - name: Expect wp-env to start
+        shell: bash
+        run: wp-env start
+
+

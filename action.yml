@@ -1,0 +1,55 @@
+name: 'Setup WP-ENV'
+
+description: 'Runs wp-env to setup an site for testing.'
+
+branding:
+  icon: code
+  color: gray-dark
+
+inputs:
+  core:
+    description: 'The WordPress installation to use.'
+    default: 'WordPress/WordPress#6.0'
+  phpVersion:
+    description: 'The PHP version to use.'
+    default: '8.0'
+  plugins:
+    description: 'A list of plugins to install and activate in the environment.'
+    default: '[]'
+  themes:
+    description: 'A list of themes to install in the environment.'
+    default: '[]'
+  config:
+    description: 'Mapping of wp-config.php constants to their desired values.'
+    default: '{}'
+  mappings:
+    description: 'Mapping of WordPress directories to local directories to be mounted in the WordPress instance.'
+    default: '{}'
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+    - name: Create configuration file
+      shell: bash
+      run: |
+        cat << EOF > .wp-env.json
+        {
+          "core"       : ${{ toJSON( inputs.core ) }},
+          "phpVersion" : ${{ toJSON( inputs.phpVersion ) }},
+          "plugins"    : ${{ inputs.plugins }},
+          "themes"     : ${{ inputs.themes }},
+          "config"     : ${{ inputs.config }},
+          "mappings"   : ${{ inputs.mappings }}
+        }
+        EOF
+
+    - name: Install wp-env
+      shell: bash
+      run: npm -g i @wordpress/env
