@@ -22,4 +22,4 @@ jobs:
       - name: Expect WordPress version 5.4
         run: |
           wp-env run cli "wp core version"
-          if [[ $(wp-env run cli "wp core version") != '5.4'; then exit 1; fi
+          if [[ $(wp-env run cli "wp core version") != "5.4" ]]; then exit 1; fi
