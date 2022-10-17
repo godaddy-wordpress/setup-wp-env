@@ -23,3 +23,21 @@ jobs:
         run: |
           wp-env run cli "php -v"
           if [[ $(wp-env run cli "php -v") != "PHP 7.4"* ]]; then exit 1; fi
+
+  php80:
+    runs-on: ubuntu-latest
+    name: Expect 8.0
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          phpVersion: "8.0"
+
+      - name: Expect PHP version 8.0
+        run: |
+          wp-env run cli "php -v"
+          if [[ $(wp-env run cli "php -v") != "PHP 8.0"* ]]; then exit 1; fi
