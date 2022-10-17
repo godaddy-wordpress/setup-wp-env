@@ -63,28 +63,28 @@ runs:
       if: ${{ '' != inputs.plugins }}
       shell: bash
       run: |
-        WP_ENV_CONFIG=$(jq -cr '.plugins = "${{ inputs.plugins }}"' <<< "$WP_ENV_CONFIG")
+        WP_ENV_CONFIG=$(jq -cr '.plugins = ${{ inputs.plugins }}' <<< "$WP_ENV_CONFIG")
         echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
 
     - name: Set the themes
       if: ${{ '' != inputs.themes }}
       shell: bash
       run: |
-        WP_ENV_CONFIG=$(jq -cr '.themes = "${{ inputs.themes }}"' <<< "$WP_ENV_CONFIG")
+        WP_ENV_CONFIG=$(jq -cr '.themes = ${{ inputs.themes }}' <<< "$WP_ENV_CONFIG")
         echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
 
     - name: Set the config
       if: ${{ '' != inputs.config }}
       shell: bash
       run: |
-        WP_ENV_CONFIG=$(jq -cr '.config = "${{ inputs.config }}"' <<< "$WP_ENV_CONFIG")
+        WP_ENV_CONFIG=$(jq -cr '.config = ${{ inputs.config }}' <<< "$WP_ENV_CONFIG")
         echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
 
     - name: Set the mappings
       if: ${{ '' != inputs.mappings }}
       shell: bash
       run: |
-        WP_ENV_CONFIG=$(jq -cr '.mappings = "${{ inputs.mappings }}"' <<< "$WP_ENV_CONFIG")
+        WP_ENV_CONFIG=$(jq -cr '.mappings = ${{ inputs.mappings }}' <<< "$WP_ENV_CONFIG")
         echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
 
     - name: Create .wp-env.override.json
