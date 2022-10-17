@@ -6,9 +6,9 @@ on:
     - main
 
 jobs:
-  php74:
+  php7432:
     runs-on: ubuntu-latest
-    name: Expect 7.4
+    name: Expect 7.4.32
     steps:
 
       - name: Checkout
@@ -17,9 +17,9 @@ jobs:
       - name: Start wp-env
         uses: ./
         with:
-          phpVersion: "7.4"
+          phpVersion: "7.4.32"
 
       - name: Expect PHP version 7.4
         run: |
-          wp-env run cli "php -v"
-          if [[ $(wp-env run cli "php -v") != *"PHP 7.4" ]]; then exit 1; fi
+          wp-env run cli "php -r 'echo PHP_VERSION;'"
+          if [[ $(wp-env run cli "php -r 'echo PHP_VERSION;'") != "7.4.32" ]]; then exit 1; fi
