@@ -1,5 +1,53 @@
-# Setup WP ENV (Composite Action)
+# Setup @wordpress/env (wp-env)
 
-An Action which uses @wordpress/env to setup an environment for testing.
+This Action will setup and start [@wordpress/env](https://github.com/WordPress/gutenberg/tree/HEAD/packages/env) for quick and efficient continuous integration (CI) testing with WordPress.
 
-NOTE: This Action is a WIP.
+## Usage
+
+Use this Action in one of your project [workflows](https://docs.github.com/en/actions/using-workflows) steps:
+
+```yaml
+jobs:
+  wp-env:
+    runs-on: ubuntu-latest
+    name: Setup WordPress environment
+    steps:
+      - name: Start wp-env
+        uses: @godaddy-wordpress/setup-wp-env@v1
+```
+
+## Options
+
+This action allows configuration of each option found in [`wp-env.json`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/env#wp-envjson), except the port (it is unnecessary, as each runner is encapsulated). These are added as strings, and later converted to JSON and added to `wp-env.override.json`.
+
+### Examples
+
+```yaml
+- name: Start wp-env
+  uses: @godaddy-wordpress/setup-wp-env@v1
+  with:
+	core: "WordPress/WordPress#5.9"
+	phpVersion: "7.4"
+	plugins: ["https://downloads.wordpress.org/plugin/coblocks.zip"]
+	themes: ["https://downloads.wordpress.org/theme/go.zip"]
+```
+
+> Please note that when adding plugins and themes for integration testing, it is a best practice use the official released of those projects (not development versions). This will greatly reduce the time for setup and ensures you are only downloading the necessary code for testing.
+
+---
+
+## License
+
+This project is licensed under the GPL. Use it to make something cool, have fun, and share what you've learned with others.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+---
+
+Copyright © 2022 GoDaddy Operating Company, LLC. All Rights Reserved.
+
+[godaddy.com](https://www.godaddy.com) &nbsp;&middot;&nbsp;
+GitHub [@godaddy-wordpress](https://github.com/godaddy-wordpress) &nbsp;&middot;&nbsp;
+Twitter [@godaddy](https://twitter.com/godaddy)
