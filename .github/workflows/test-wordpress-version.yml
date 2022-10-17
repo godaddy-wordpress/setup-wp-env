@@ -1,4 +1,4 @@
-name: 'WIP Test WordPress Version'
+name: 'Test WordPress Version'
 
 on:
   pull_request:

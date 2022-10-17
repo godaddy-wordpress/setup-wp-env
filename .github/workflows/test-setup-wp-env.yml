@@ -1,4 +1,4 @@
-name: 'WIP Test Setup'
+name: 'Test Setup'
 
 on:
   pull_request:
