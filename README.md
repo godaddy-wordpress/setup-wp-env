@@ -26,10 +26,10 @@ This action allows configuration of each option found in [`wp-env.json`](https:/
 - name: Start wp-env
   uses: @godaddy-wordpress/setup-wp-env@v1
   with:
-	core: "WordPress/WordPress#5.9"
-	phpVersion: "7.4"
-	plugins: ["https://downloads.wordpress.org/plugin/coblocks.zip"]
-	themes: ["https://downloads.wordpress.org/theme/go.zip"]
+    core: "WordPress/WordPress#5.9"
+    phpVersion: "7.4"
+    plugins: ["https://downloads.wordpress.org/plugin/coblocks.zip"]
+    themes: ["https://downloads.wordpress.org/theme/go.zip"]
 ```
 
 > Please note that when adding plugins and themes for integration testing, it is a best practice use the official released of those projects (not development versions). This will greatly reduce the time for setup and ensures you are only downloading the necessary code for testing.
