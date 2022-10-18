@@ -1,6 +1,6 @@
 name: 'Setup WP-ENV'
 
-description: 'Runs wp-env to setup an WordPress site for testing.'
+description: 'Runs wp-env to setup a WordPress site for testing.'
 
 branding:
   icon: code
@@ -37,8 +37,9 @@ runs:
       run: npm -g i @wordpress/env
 
     # Although @wordpress/env ships with a default configuration, a missing or
-    # empty .wp-env.override.json file will throw an error. We provide a minimum
-    # config which includes only an empty env object, that can be overridden.
+    # empty .wp-env.json or .wp-env.override.json file will throw an error. We
+    # provide a minimum config which includes only an empty env object, that can
+    # be overridden with the Action's env input.
     - name: Create the configuration file
       shell: bash
       run: |

@@ -13,8 +13,14 @@ jobs:
     name: Setup WordPress environment
     steps:
       - name: Start wp-env
-        uses: @godaddy-wordpress/setup-wp-env@v1
+        uses: godaddy-wordpress/setup-wp-env@v1
 ```
+
+### Usage with wp-env.json
+
+This Action assumes that no `wp-env.json` is present in the project that uses this Action in a workflow. If a `wp-env.json` file is present in the project, this Action config will override that config; however, if no inputs are provided that already exist in `wp-env.json`, those will be used instead (this is how `@wordpress/env` is designed).
+
+If your project includes a `wp-env.json` at root, it is best to explicitly add all necessary inputs in order to override the `wp-env.json` which exists in the project.
 
 ## Options
 
@@ -24,7 +30,7 @@ This action allows configuration of each option found in [`wp-env.json`](https:/
 
 ```yaml
 - name: Start wp-env
-  uses: @godaddy-wordpress/setup-wp-env@v1
+  uses: godaddy-wordpress/setup-wp-env@v1
   with:
     core: "WordPress/WordPress#5.9"
     phpVersion: "7.4"
@@ -32,7 +38,7 @@ This action allows configuration of each option found in [`wp-env.json`](https:/
     themes: ["https://downloads.wordpress.org/theme/go.zip"]
 ```
 
-> Please note that when adding plugins and themes for integration testing, it is a best practice use the official released of those projects (not development versions). This will greatly reduce the time for setup and ensures you are only downloading the necessary code for testing.
+> Please note that when adding plugins and themes for integration testing, it is a best practice to use the official released of those projects (not development versions). This will greatly reduce the time for setup and ensures you are only downloading the necessary code for testing.
 
 ---
 
@@ -50,4 +56,4 @@ Copyright © 2022 GoDaddy Operating Company, LLC. All Rights Reserved.
 
 [godaddy.com](https://www.godaddy.com) &nbsp;&middot;&nbsp;
 GitHub [@godaddy-wordpress](https://github.com/godaddy-wordpress) &nbsp;&middot;&nbsp;
-Twitter [@godaddy](https://twitter.com/godaddy)
+Twitter [@GoDaddyOSS](https://twitter.com/GoDaddyOSS)
