@@ -1,0 +1,39 @@
+name: 'Test Plugins Install'
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  coblocks:
+    runs-on: ubuntu-latest
+    name: Expect CoBlocks to be installed
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          plugins: '["https://downloads.wordpress.org/plugin/coblocks.zip"]'
+
+      - name: Check plugin is installed
+        run: wp-env run cli "wp plugin is-installed coblocks"
+
+  woocommerce:
+    runs-on: ubuntu-latest
+    name: Expect WooCommerce to be installed
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          plugins: '["https://downloads.wordpress.org/plugin/woocommerce.zip"]'
+
+      - name: Check plugin is installed
+        run: wp-env run cli "wp plugin is-installed woocommerce"
