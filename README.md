@@ -18,9 +18,9 @@ jobs:
 
 ### Usage with wp-env.json
 
-This Action assumes that no `wp-env.json` is present in the project that uses this Action in a workflow. If a `wp-env.json` file is present in the project, this Action config will override that config; however, if no inputs are provided that already exist in `wp-env.json`, those will be used instead (this is how `@wordpress/env` is designed).
+This Action assumes that no `.wp-env.json` is present in the project that uses this Action in a workflow. If a `.wp-env.json` file is present in the project, this Action config will override that config; however, if no inputs are provided that already exist in `.wp-env.json`, those will be used instead (this is how `@wordpress/env` is designed).
 
-If your project includes a `wp-env.json` at root, it is best to explicitly add all necessary inputs in order to override the `wp-env.json` which exists in the project.
+If your project includes a `.wp-env.json` at root, it is best to explicitly add all necessary inputs in order to override the `.wp-env.json` which exists in the project.
 
 ## Options
 
