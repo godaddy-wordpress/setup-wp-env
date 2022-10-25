@@ -42,18 +42,6 @@ This action allows configuration of each option found in [`wp-env.json`](https:/
 
 ---
 
-## License
+Copyright © 2022  [GoDaddy Operating Company, LLC](https://godaddy.com) &nbsp;&middot;&nbsp; All Rights Reserved &nbsp;&middot;&nbsp; [License](LICENSE)
 
-This project is licensed under the GPL. Use it to make something cool, have fun, and share what you've learned with others.
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
----
-
-Copyright © 2022 GoDaddy Operating Company, LLC. All Rights Reserved.
-
-[godaddy.com](https://www.godaddy.com) &nbsp;&middot;&nbsp;
-GitHub [@godaddy-wordpress](https://github.com/godaddy-wordpress) &nbsp;&middot;&nbsp;
-Twitter [@GoDaddyOSS](https://twitter.com/GoDaddyOSS)
+[![GoDaddy Engineering](https://raw.githubusercontent.com/godaddy-wordpress/.github/master/assets/godaddy-oss-readme-banner.webp)](https://www.godaddy.com/engineering/)
