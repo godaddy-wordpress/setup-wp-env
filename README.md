@@ -16,7 +16,7 @@ jobs:
         uses: godaddy-wordpress/setup-wp-env@v1
 ```
 
-### Usage with wp-env.json
+### Usage with .wp-env.json
 
 This Action assumes that no `.wp-env.json` is present in the project that uses this Action in a workflow. If a `.wp-env.json` file is present in the project, this Action config will override that config; however, if no inputs are provided that already exist in `.wp-env.json`, those will be used instead (this is how `@wordpress/env` is designed).
 
@@ -24,7 +24,7 @@ If your project includes a `.wp-env.json` at root, it is best to explicitly add 
 
 ## Options
 
-This action allows configuration of each option found in [`wp-env.json`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/env#wp-envjson), except the port (it is unnecessary, as each runner is encapsulated). These are added as strings, and later converted to JSON and added to `wp-env.override.json`.
+This action allows configuration of each option found in [`.wp-env.json`](https://github.com/WordPress/gutenberg/tree/HEAD/packages/env#wp-envjson), except the port (it is unnecessary, as each runner is encapsulated). These are added as strings, and later converted to JSON and added to `.wp-env.override.json`.
 
 ### Examples
 
