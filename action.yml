@@ -1,6 +1,6 @@
 name: 'Setup WP-ENV'
 
-description: 'Runs wp-env to setup an site for testing.'
+description: 'Runs wp-env to setup a WordPress site for testing.'
 
 branding:
   icon: code
@@ -9,21 +9,18 @@ branding:
 inputs:
   core:
     description: 'The WordPress installation to use.'
-    default: 'WordPress/WordPress#6.0'
   phpVersion:
     description: 'The PHP version to use.'
-    default: '8.0'
   plugins:
     description: 'A list of plugins to install and activate in the environment.'
-    default: '[]'
   themes:
     description: 'A list of themes to install in the environment.'
-    default: '[]'
   config:
     description: 'Mapping of wp-config.php constants to their desired values.'
-    default: '{}'
   mappings:
     description: 'Mapping of WordPress directories to local directories to be mounted in the WordPress instance.'
+  env:
+    description: 'Override any of the above options on an individual-environment basis.'
     default: '{}'
 
 runs:
@@ -33,23 +30,68 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-          node-version: 'lts/*'
-          cache: 'npm'
-
-    - name: Create configuration file
-      shell: bash
-      run: |
-        cat << EOF > .wp-env.override.json
-        {
-          "core"       : ${{ toJSON( inputs.core ) }},
-          "phpVersion" : ${{ toJSON( inputs.phpVersion ) }},
-          "plugins"    : ${{ inputs.plugins }},
-          "themes"     : ${{ inputs.themes }},
-          "config"     : ${{ inputs.config }},
-          "mappings"   : ${{ inputs.mappings }}
-        }
-        EOF
+        node-version: 'lts/*'
 
     - name: Install wp-env
       shell: bash
       run: npm -g i @wordpress/env
+
+    # Although @wordpress/env ships with a default configuration, a missing or
+    # empty .wp-env.json or .wp-env.override.json file will throw a warning. We
+    # provide a minimum config which includes only an empty env object, that can
+    # be overridden with the Action's env input.
+    - name: Create the configuration file
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cnr '{ "env" : ${{ inputs.env }} }')
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the WordPress version
+      if: ${{ '' != inputs.core }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.core = "${{ inputs.core }}"' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the PHP version
+      if: ${{ '' != inputs.phpVersion }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.phpVersion = "${{ inputs.phpVersion }}"' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the plugins
+      if: ${{ '' != inputs.plugins }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.plugins = ${{ inputs.plugins }}' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the themes
+      if: ${{ '' != inputs.themes }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.themes = ${{ inputs.themes }}' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the config
+      if: ${{ '' != inputs.config }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.config = ${{ inputs.config }}' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Set the mappings
+      if: ${{ '' != inputs.mappings }}
+      shell: bash
+      run: |
+        WP_ENV_CONFIG=$(jq -cr '.mappings = ${{ inputs.mappings }}' <<< "$WP_ENV_CONFIG")
+        echo "WP_ENV_CONFIG=$WP_ENV_CONFIG" >> $GITHUB_ENV
+
+    - name: Create .wp-env.override.json
+      shell: bash
+      run: jq -c . > .wp-env.override.json <<< "$WP_ENV_CONFIG"
+
+    - name: Start wp-env
+      shell: bash
+      run: wp-env start

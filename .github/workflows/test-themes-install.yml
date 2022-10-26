@@ -1,0 +1,23 @@
+name: 'Test Themes Install'
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    name: Expect Go to be installed
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          themes: '["https://downloads.wordpress.org/theme/go.zip"]'
+
+      - name: Check theme is installed
+        run: wp-env run cli "wp theme is-installed go"

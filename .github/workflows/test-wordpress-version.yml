@@ -1,0 +1,61 @@
+name: 'Test WordPress Version'
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  wp4721:
+    runs-on: ubuntu-latest
+    name: Expect 4.7.21
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          core: "WordPress/WordPress#4.7.21"
+
+      - name: Expect WordPress version 4.7.21
+        run: |
+          wp-env run cli "wp core version"
+          if [[ $(wp-env run cli "wp core version") != "4.7.21" ]]; then exit 1; fi
+
+  wp54:
+    runs-on: ubuntu-latest
+    name: Expect 5.4
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          core: "WordPress/WordPress#5.4"
+
+      - name: Expect WordPress version 5.4
+        run: |
+          wp-env run cli "wp core version"
+          if [[ $(wp-env run cli "wp core version") != "5.4" ]]; then exit 1; fi
+
+  wp601:
+    runs-on: ubuntu-latest
+    name: Expect 6.0.1
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Start wp-env
+        uses: ./
+        with:
+          core: "WordPress/WordPress#6.0.1"
+
+      - name: Expect WordPress version 6.0.1
+        run: |
+          wp-env run cli "wp core version"
+          if [[ $(wp-env run cli "wp core version") != "6.0.1" ]]; then exit 1; fi
